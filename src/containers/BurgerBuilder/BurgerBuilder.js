@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import Aux from '../../hoc/Aux/Aux';
-import Burger from '../../components/Burger/Burger';
-import BuildControls from '../../components/Burger/BuildControls/BuildControls';
-import Modal from '../../components/UI/Modal/Modal';
-import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import React, { Component } from "react";
+import Aux from "../../hoc/Aux/Aux";
+import Burger from "../../components/Burger/Burger";
+import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICE = {
   salad: 0.5,
@@ -44,7 +44,21 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    alert('continue ha');
+    const queryParam = [];
+    for (const i in this.state.ingredients) {
+      queryParam.push(
+        `${encodeURIComponent(i)}=${encodeURIComponent(
+          this.state.ingredients[i]
+        )}`
+      );
+    }
+    console.log('queryParam', queryParam);
+    const queryString = queryParam.join("&");
+
+    this.props.history.push({
+      pathname: "/checkout",
+      search: `?${queryString}`
+    });
   };
 
   addIngredientsHandler = type => {
