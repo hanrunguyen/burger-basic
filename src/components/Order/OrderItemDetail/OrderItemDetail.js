@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { roundTwoNumber } from '../../../helpers/helper';
-import axios, { getCancelTokenSource } from '../../../axios-order';
+import axios, { getCancelTokenSource } from '../../../api';
 import classes from './OrderItemDetail.css';
 
 const OrderItemDetail = props => {

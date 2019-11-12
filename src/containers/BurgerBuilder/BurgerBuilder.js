@@ -4,10 +4,9 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import axios from '../../axios-order';
+import axios from '../../api';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import { timeId } from '../../helpers/helper';
 
 const INGREDIENT_PRICE = {
   salad: 0.5,
@@ -66,24 +65,25 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    const order = {
-      ingredients: this.state.ingredients,
-      totalPrice: this.state.totalPrice,
-      id: timeId()
-    };
-    this.setState({ isLoading: true });
-    axios
-      .post('orders.json', order)
-      .then(
-        () =>
-          !this.unMounted &&
-          this.setState({ isLoading: false, isPurchasing: false })
-      )
-      .catch(error => {
-        if (this.unMounted) return;
-        this.setState({ isLoading: false, isPurchasing: false });
-        console.log(error);
-      });
+    // const order = {
+    //   ingredients: this.state.ingredients,
+    //   totalPrice: this.state.totalPrice,
+    //   id: timeId()
+    // };
+    // this.setState({ isLoading: true });
+    // axios
+    //   .post('orders.json', order)
+    //   .then(
+    //     () =>
+    //       !this.unMounted &&
+    //       this.setState({ isLoading: false, isPurchasing: false })
+    //   )
+    //   .catch(error => {
+    //     if (this.unMounted) return;
+    //     this.setState({ isLoading: false, isPurchasing: false });
+    //     console.log(error);
+    //   });
+    this.props.history.push('/checkout/contact-data');
   };
 
   addIngredientsHandler = type => {
