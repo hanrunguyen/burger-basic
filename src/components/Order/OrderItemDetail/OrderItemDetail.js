@@ -34,6 +34,15 @@ const OrderItemDetail = props => {
           <span key={idx}>{`${elm}: ${item.ingredients[elm]}`}</span>
         ))}
         <span>{`Total price: ${roundTwoNumber(item.totalPrice)}`}</span>
+        <br />
+        <br />
+        <strong>Information:</strong> <br />
+        <span>{`Name: ${item.fname}`}</span>
+        <span>{`Email: ${item.email}`}</span>
+        <span>{`Street: ${item.street}`}</span>
+        <span>{`Postal code: ${item.postalCode}`}</span>
+
+        {/* <button onClick={}>Delete order</button> */}
       </div>
     )
   );

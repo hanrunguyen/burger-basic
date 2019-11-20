@@ -7,6 +7,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../api';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import { connect } from 'react-redux';
 
 const INGREDIENT_PRICE = {
   salad: 0.5,
@@ -65,25 +66,8 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    // const order = {
-    //   ingredients: this.state.ingredients,
-    //   totalPrice: this.state.totalPrice,
-    //   id: timeId()
-    // };
-    // this.setState({ isLoading: true });
-    // axios
-    //   .post('orders.json', order)
-    //   .then(
-    //     () =>
-    //       !this.unMounted &&
-    //       this.setState({ isLoading: false, isPurchasing: false })
-    //   )
-    //   .catch(error => {
-    //     if (this.unMounted) return;
-    //     this.setState({ isLoading: false, isPurchasing: false });
-    //     console.log(error);
-    //   });
     this.props.history.push('/checkout/contact-data');
+    this.props.addOrder(this.state.ingredients, this.state.totalPrice);
   };
 
   addIngredientsHandler = type => {
@@ -182,4 +166,12 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default WithErrorHandler(BurgerBuilder, axios);
+const mapDispatchToProps = dispatch => ({
+  addOrder: (ingredients, totalPrice) =>
+    dispatch({ type: 'ADD_ORDER', ingredients, totalPrice })
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(WithErrorHandler(BurgerBuilder, axios));

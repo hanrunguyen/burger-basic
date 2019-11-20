@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { connect } from 'react-redux';
 
 import axios from '../../../api';
 import Button from '../../../components/UI/Button/Button';
@@ -31,20 +32,10 @@ class ContactData extends Component {
     this.unMounted = true;
   }
 
-  updatePurchaseState(ingredients) {
-    const sum = Object.keys(ingredients)
-      .map(igKey => ingredients[igKey])
-      .reduce((sum, elm) => {
-        return sum + elm;
-      }, 0);
-
-    this.setState({ isPurchasable: sum > 0 });
-  }
-
   orderHandler = valueInfo => {
     const order = {
-      ingredients: this.state.ingredients,
-      totalPrice: this.state.totalPrice,
+      ingredients: this.props.ingredients,
+      totalPrice: this.props.totalPrice,
       id: timeId(),
       ...valueInfo
     };
@@ -64,8 +55,19 @@ class ContactData extends Component {
   };
 
   render() {
+    const { ingredients, totalPrice } = this.props;
+
     return (
       <div className={classes.ContactData}>
+        <p>Here is your detail order</p>
+        <ul>
+          {Object.keys(ingredients).map(ingredient => (
+            <li
+              key={ingredient}
+            >{`${ingredient}: ${ingredients[ingredient]}`}</li>
+          ))}
+        </ul>
+        <span>{`Total price: ${totalPrice}`}</span>
         <h4>Enter your contact</h4>
         <Formik
           initialValues={{ fname: '', email: '', street: '', postalCode: '' }}
@@ -152,4 +154,10 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStatetoProps = state =>
+  state && {
+    ingredients: state.ingredients,
+    totalPrice: state.totalPrice
+  };
+
+export default connect(mapStatetoProps)(ContactData);

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import OrderList from './containers/OrderList/OrderList';
 import OrderItemDetail from './components/Order/OrderItemDetail/OrderItemDetail';
-import { Route, Switch } from 'react-router-dom';
 import ContactData from './containers/Checkout/ContactData/ContactData';
 
 class App extends Component {
