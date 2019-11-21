@@ -1,31 +1,46 @@
 import React from 'react';
-import Aux from '../../../hoc/Aux/Aux';
-import Button from '../../UI/Button/Button';
+import { Heading, Paragraph, Button, Text, List, Box } from 'grommet';
+
+const mainColor = '#703b09';
 
 const OrderSummary = props => {
-  const ingredientSummary = Object.keys(props.ingredients).map(igKey => (
-    <li key={igKey}>
-      <span style={{ textTransform: 'capitalize' }}>{igKey}</span>:
-      {props.ingredients[igKey]}
-    </li>
-  ));
-
   return (
-    <Aux>
-      <h3>Your order</h3>
-      <p>A delicious burger with the following ingredients:</p>
-      <ul>{ingredientSummary}</ul>
-      <p>
-        <strong>Total price: {props.price.toFixed(2)}</strong>
-      </p>
-      <p>You wanna checkout?</p>
-      <Button clicked={props.purchaseCancel} btnType={'Danger'}>
-        CANCEL
-      </Button>
-      <Button clicked={props.purchaseContinue} btnType={'Success'}>
-        CONTINUE
-      </Button>
-    </Aux>
+    <Box>
+      <Heading level="2" textAlign="center">Your order</Heading>
+      <Paragraph>A delicious burger with the following ingredients:</Paragraph>
+      <List
+        primaryKey="name"
+        secondaryKey="value"
+        data={Object.keys(props.ingredients).map(igKey => ({
+          name: igKey,
+          value: props.ingredients[igKey]
+        }))}
+      />
+      <Text
+        size="medium"
+        margin="small"
+        weight="bold"
+        textAlign="end"
+        pad="small"
+      >
+        Total price: {props.price.toFixed(2)}
+      </Text>
+      <Paragraph>You wanna checkout?</Paragraph>
+      <Box direction="row" justify="center">
+        <Button
+          onClick={props.purchaseCancel}
+          label="CANCEL"
+          margin="small"
+          color={mainColor}
+        />
+        <Button
+          onClick={props.purchaseContinue}
+          label="CONTINUE"
+          margin="small"
+          color={mainColor}
+        />
+      </Box>
+    </Box>
   );
 };
 

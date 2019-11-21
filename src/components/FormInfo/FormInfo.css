@@ -1,0 +1,19 @@
+.Input {
+  border: 0;
+  height: 2.5rem;
+  font-size: 1.8rem;
+  padding: 5px 10px;
+}
+
+.Input:focus {
+  outline: none;
+}
+
+form {
+  width: 100%;
+}
+
+.ErrorMessage {
+  color: red;
+  font-size: 1.4rem;
+}

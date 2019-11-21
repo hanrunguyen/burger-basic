@@ -1,5 +1,6 @@
 import React from 'react';
-import classes from './BuildControls.css';
+import { Button, Heading, Box } from 'grommet';
+
 import BuildControl from './BuildControl/BuildControl';
 
 const controls = [
@@ -10,10 +11,10 @@ const controls = [
 ];
 
 const BuildControls = props => (
-  <div className={classes.BuildControls}>
-    <p>
+  <Box direction="column" align="center" pad="medium" background="accent-4">
+    <Heading level="4">
       Current price <strong>{props.price.toFixed(2)}</strong>
-    </p>
+    </Heading>
     {controls.map(ctrl => (
       <BuildControl
         key={ctrl.label}
@@ -24,14 +25,14 @@ const BuildControls = props => (
         disabled={props.disabled[ctrl.type]}
       />
     ))}
-    <button
-      className={classes.OrderButton}
+    <Button
       disabled={props.purchasable}
       onClick={props.order}
-    >
-      ORDER NOW
-    </button>
-  </div>
+      label="ORDER NOW"
+      color="#703b09"
+      margin="medium"
+    />
+  </Box>
 );
 
 export default BuildControls;

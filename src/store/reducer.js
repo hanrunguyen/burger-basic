@@ -1,14 +1,11 @@
-const intialState = {
-  ingredients: null
-};
+import { orderActionTypes } from './actionTypes';
 
-const reducer = (state = intialState, action) => {
+const reducer = (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_ORDER':
+    case orderActionTypes.ADD_ORDER:
       return {
         ...state,
-        ingredients: action.ingredients,
-        totalPrice: action.totalPrice
+        payload: action.payload
       };
     default:
       break;

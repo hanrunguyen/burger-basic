@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -7,7 +9,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../api';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import { connect } from 'react-redux';
+import { addOrder } from '../../store/actionsCreator';
 
 const INGREDIENT_PRICE = {
   salad: 0.5,
@@ -168,7 +170,7 @@ class BurgerBuilder extends Component {
 
 const mapDispatchToProps = dispatch => ({
   addOrder: (ingredients, totalPrice) =>
-    dispatch({ type: 'ADD_ORDER', ingredients, totalPrice })
+    dispatch(addOrder(ingredients, totalPrice))
 });
 
 export default connect(

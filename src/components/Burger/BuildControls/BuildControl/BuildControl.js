@@ -1,25 +1,24 @@
 import React from 'react';
-import classes from './BuildControl.css';
+import { Button, Text, Box } from 'grommet';
+import { Add, Subtract } from 'grommet-icons';
+
+const mainColor = '#703b09';
 
 const BuildControl = props => (
-  <div className={classes.BuildControl}>
-    <div className={classes.Label}>{props.label}</div>
+  <Box direction="row">
+    <Text size="medium" alignSelf="center">
+      {props.label}
+    </Text>
 
-    <button
-      className={classes.Less}
+    <Button
       onClick={props.removed}
       disabled={props.disabled}
-    >
-      Less
-    </button>
+      icon={<Subtract color={mainColor} />}
+      color={mainColor}
+    />
 
-    <button
-      className={classes.More}
-      onClick={props.added}
-    >
-      More
-    </button>
-  </div>
+    <Button onClick={props.added} icon={<Add color={mainColor} />} />
+  </Box>
 );
 
 export default BuildControl;

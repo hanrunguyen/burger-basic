@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { List, Text, Anchor, Box } from 'grommet';
+import { LinkPrevious } from 'grommet-icons';
+
 import { roundTwoNumber } from '../../../helpers/helper';
 import axios, { getCancelTokenSource } from '../../../api';
-import classes from './OrderItemDetail.css';
+
+const mainColor = '#703b09';
 
 const OrderItemDetail = props => {
   const {
@@ -27,23 +31,62 @@ const OrderItemDetail = props => {
     };
   }, [params.id]);
 
+  const handleBackOrder = () => {
+    props.history.push('/orders');
+  };
+
   return (
     item && (
-      <div className={classes.OrderItemDetail}>
-        {Object.keys(item.ingredients).map((elm, idx) => (
-          <span key={idx}>{`${elm}: ${item.ingredients[elm]}`}</span>
-        ))}
-        <span>{`Total price: ${roundTwoNumber(item.totalPrice)}`}</span>
-        <br />
-        <br />
-        <strong>Information:</strong> <br />
-        <span>{`Name: ${item.fname}`}</span>
-        <span>{`Email: ${item.email}`}</span>
-        <span>{`Street: ${item.street}`}</span>
-        <span>{`Postal code: ${item.postalCode}`}</span>
-
-        {/* <button onClick={}>Delete order</button> */}
-      </div>
+      <Box margin="medium">
+        <Anchor
+          label="Back to Order"
+          onClick={handleBackOrder}
+          icon={<LinkPrevious color={mainColor} />}
+          color={mainColor}
+          margin={{ vertical: 'small', top: 'small', bottom: 'medium' }}
+        />
+        <List
+          primaryKey="name"
+          secondaryKey="value"
+          data={Object.keys(item.ingredients).map(elm => ({
+            name: elm,
+            value: item.ingredients[elm]
+          }))}
+        />
+        <Text
+          textAlign="end"
+          size="large"
+          margin="small"
+          weight="bold"
+        >{`Total price: ${roundTwoNumber(item.totalPrice)}`}</Text>
+        <Box margin={{ vertical: 'medium' }}>
+          <Text size="large" margin={{ vertical: 'small' }} weight="bold">
+            Information
+          </Text>
+          <List
+            primaryKey="name"
+            secondaryKey="value"
+            data={[
+              {
+                name: 'Name',
+                value: item.fname
+              },
+              {
+                name: 'Email',
+                value: item.email
+              },
+              {
+                name: 'Street',
+                value: item.street
+              },
+              {
+                name: 'Postal code',
+                value: item.postalCode
+              }
+            ]}
+          />
+        </Box>
+      </Box>
     )
   );
 };
