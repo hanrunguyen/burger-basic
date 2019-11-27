@@ -4,6 +4,7 @@ import { LinkPrevious } from 'grommet-icons';
 
 import { roundTwoNumber } from '../../../helpers/helper';
 import axios, { getCancelTokenSource } from '../../../api';
+import OrderTable from '../../Order/OrderTable/OrderTable';
 
 const mainColor = '#703b09';
 
@@ -45,14 +46,7 @@ const OrderItemDetail = props => {
           color={mainColor}
           margin={{ vertical: 'small', top: 'small', bottom: 'medium' }}
         />
-        <List
-          primaryKey="name"
-          secondaryKey="value"
-          data={Object.keys(item.ingredients).map(elm => ({
-            name: elm,
-            value: item.ingredients[elm]
-          }))}
-        />
+        <OrderTable ingredients={item.ingredients} />
         <Text
           textAlign="end"
           size="large"

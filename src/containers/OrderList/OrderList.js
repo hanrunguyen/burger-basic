@@ -39,14 +39,16 @@ const OrderList = props => {
   };
 
   return (
-    <div>
+    <Box margin="medium">
       {deletedStatus.isDeleted && (
         <Box align="center">
           <Text color="neutral-1">The order is deleted</Text>
         </Box>
       )}
       {deletedStatus.error && (
-        <span>{`The order can not be deleted with error ${deletedStatus.error}`}</span>
+        <Box align="center">
+          <Text>{`The order can not be deleted with error ${deletedStatus.error}`}</Text>
+        </Box>
       )}
       {list &&
         Object.keys(list).map((item, idx) => (
@@ -58,7 +60,7 @@ const OrderList = props => {
             deleteOrder={() => handleDeleteOrder(item)}
           />
         ))}
-    </div>
+    </Box>
   );
 };
 

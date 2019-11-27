@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, List, Heading, Markdown, Box } from 'grommet';
+import { Text, Heading, Markdown, Box } from 'grommet';
 
-import axios from '../../../api';
 import FormInfo from '../../../components/FormInfo/FormInfo';
-import { timeId, roundTwoNumber } from '../../../helpers/helper';
+import { roundTwoNumber } from '../../../helpers/helper';
+import OrderTable from '../../../components/Order/OrderTable/OrderTable';
 
 import classes from './ContactData.css';
 
@@ -47,14 +47,7 @@ class ContactData extends Component {
               <Heading level="3" textAlign="center" responsive={true}>
                 Here is your detail order
               </Heading>
-              <List
-                primaryKey="name"
-                secondaryKey="value"
-                data={Object.keys(ingredients).map(ingredient => ({
-                  name: ingredient,
-                  value: ingredients[ingredient]
-                }))}
-              />
+              <OrderTable ingredients={ingredients} />
               {totalPrice && (
                 <Text
                   size="large"
